@@ -1,7 +1,10 @@
 const { constants } = require("../constants");
 const errorHandler = (err, req, res, next) => {
+
+  // getting statuscode, default code as 500
   const statusCode = res.statusCode ? res.statusCode : 500;
   switch (statusCode) {
+    // specific code no being stored in the constant file
     case constants.VALIDATION_ERROR:
       res.json({
         title: "Validation Failed",
@@ -40,6 +43,7 @@ const errorHandler = (err, req, res, next) => {
         stackTrace: err.stack,
       });
     default:
+        // when no error found
         console.log("No error, All good!");
       break;
   }

@@ -9,7 +9,7 @@ const {
 } = require("../controllers/contactController");
 const validateToken = require("../middleware/validateTokenHandler");
 
-//this one applies to all of the routes in it
+//this is a way to implement validateToken function in of the routes.
 router.use(validateToken);
 
 router.route("/").get(getContacts).post(createContact);
