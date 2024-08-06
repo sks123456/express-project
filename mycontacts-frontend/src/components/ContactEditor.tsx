@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Contact, getContacts, createContact, updateContact, deleteContact } from '../Api';
+import React, { useEffect, useState } from "react";
+import {
+  Contact,
+  getContacts,
+  createContact,
+  updateContact,
+  deleteContact,
+} from "../Api/UserApi";
 
 const Contacts: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const [newContact, setNewContact] = useState<Omit<Contact, 'id' | 'user_id'>>({ name: '', email: '', phone: '' });
+  const [newContact, setNewContact] = useState<Omit<Contact, "id" | "user_id">>(
+    { name: "", email: "", phone: "" }
+  );
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -19,7 +27,10 @@ const Contacts: React.FC = () => {
     setContacts([...contacts, createdContact]);
   };
 
-  const handleUpdateContact = async (id: string, updatedContact: Partial<Omit<Contact, 'id' | 'user_id'>>) => {
+  const handleUpdateContact = async (
+    id: string,
+    updatedContact: Partial<Omit<Contact, "id" | "user_id">>
+  ) => {
     const contact = await updateContact(id, updatedContact);
     setContacts(contacts.map((c) => (c.id === id ? contact : c)));
   };
@@ -36,10 +47,20 @@ const Contacts: React.FC = () => {
         {contacts.map((contact) => (
           <li key={contact.id}>
             {contact.name} - {contact.email} - {contact.phone}
-            <button onClick={() => handleUpdateContact(contact.id, { name: 'Updated Name', email: contact.email, phone: contact.phone })}>
+            <button
+              onClick={() =>
+                handleUpdateContact(contact.id, {
+                  name: "Updated Name",
+                  email: contact.email,
+                  phone: contact.phone,
+                })
+              }
+            >
               Update
             </button>
-            <button onClick={() => handleDeleteContact(contact.id)}>Delete</button>
+            <button onClick={() => handleDeleteContact(contact.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
@@ -49,19 +70,25 @@ const Contacts: React.FC = () => {
           type="text"
           placeholder="Name"
           value={newContact.name}
-          onChange={(e) => setNewContact({ ...newContact, name: e.target.value })}
+          onChange={(e) =>
+            setNewContact({ ...newContact, name: e.target.value })
+          }
         />
         <input
           type="email"
           placeholder="Email"
           value={newContact.email}
-          onChange={(e) => setNewContact({ ...newContact, email: e.target.value })}
+          onChange={(e) =>
+            setNewContact({ ...newContact, email: e.target.value })
+          }
         />
         <input
           type="tel"
           placeholder="Phone"
           value={newContact.phone}
-          onChange={(e) => setNewContact({ ...newContact, phone: e.target.value })}
+          onChange={(e) =>
+            setNewContact({ ...newContact, phone: e.target.value })
+          }
         />
         <button onClick={handleCreateContact}>Create Contact</button>
       </div>

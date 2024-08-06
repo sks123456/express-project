@@ -4,13 +4,9 @@ import AppRoutes from "./routes/userRoutes";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [token, setToken] = useState("");
-
   return (
     <Router>
-      <div className="">
-        <AppRoutes token={token} setToken={setToken} />
-      </div>
+      <AppRoutes />
     </Router>
   );
 };
