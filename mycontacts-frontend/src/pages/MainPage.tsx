@@ -1,6 +1,7 @@
 // pages/MainPage.tsx
 import React from "react";
 import CurrentUser from "../components/CurrentUser";
+import ContactsList from "../components/Contacts";
 
 const MainPage: React.FC = () => {
   return (
@@ -15,7 +16,9 @@ const MainPage: React.FC = () => {
         <h2 className="text-2xl font-bold text-center text-blue-700 mb-6">
           Contact Management
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <ContactsList />
+        </div>
       </div>
     </div>
   );

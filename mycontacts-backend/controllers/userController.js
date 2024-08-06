@@ -1,14 +1,14 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
-const bcrypt = require("bcrypt");       //encrypt user pass
-const jwt = require("jsonwebtoken");    //create user token
+const bcrypt = require("bcrypt"); //encrypt user pass
+const jwt = require("jsonwebtoken"); //create user token
 
 //@desc Register a user
 //@route Get /api/users/register
 //@access public
 const registerUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
-  
+
   //input validation
   if (!username || !email || !password) {
     res.status(400);
@@ -59,7 +59,6 @@ const loginUser = asyncHandler(async (req, res) => {
 
   //   compare pass with hashedpass
   if (user && (await bcrypt.compare(password, user.password))) {
-
     //create access token using jwt
     const accessToken = jwt.sign(
       {
@@ -73,7 +72,7 @@ const loginUser = asyncHandler(async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET,
       {
         //token validation duration
-        expiresIn: "15m",
+        expiresIn: "1m",
       }
     );
     res.status(200).json({ accessToken });
