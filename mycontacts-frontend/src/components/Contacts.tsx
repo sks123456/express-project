@@ -42,21 +42,25 @@ const ContactsList: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>Contacts</h2>
+    <div className="w-auto">
+      {/* Button to open the modal for creating a new contact */}
       <button
         className="mt-4 py-2 px-4 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200"
         onClick={openModal}
       >
-        Create Contact{" "}
+        Create Contact
       </button>
+
+      {/* Modal for creating a new contact */}
       {isModalOpen && (
         <Modal message="" onClose={closeModal}>
           <CreateContact />{" "}
-          {/* Render the Register component inside the modal */}
+          {/* Render the CreateContact component inside the modal */}
         </Modal>
       )}
-      <table className="min-w-full bg-white border border-gray-200">
+
+      {/* Table to display contacts */}
+      <table className="min-w-full bg-white border border-gray-200 mt-4">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Name</th>
@@ -74,7 +78,7 @@ const ContactsList: React.FC = () => {
               <td className="py-2 px-4 border-b">
                 <button
                   onClick={() => handleDelete(contact._id, contact.name)}
-                  className="py-1 px-3 bg-red-500 text-white rounded-full hover:bg-red-600"
+                  className="py-1 px-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition duration-200"
                 >
                   Delete
                 </button>
