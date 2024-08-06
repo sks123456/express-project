@@ -27,31 +27,37 @@ export const getContacts = async () => {
   return jsonObj;
 };
 
-export const createContact = async (contact: {
+interface Contacts {
   name: string;
   email: string;
   phone: string;
-}) => {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-    },
-    body: JSON.stringify(contact),
-  });
-  return response.json();
+}
+
+export const createContact = async (contact: Contacts) => {
+  const response = await axios.post(`${API_URL}/api/contacts/`, contact);
+  return response.data;
 };
 
 export const getContact = async (id: string) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-  return response.json();
+  const jsonObj = await axios
+    .get(`${API_URL}/api/contacts/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
+    .then((response) => {
+      return response.data; // Get jsonObj
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      if (error.response.status === 401) {
+        window.location.href = "/";
+      }
+    });
+
+  return jsonObj;
 };
 
 export const updateContact = async (
@@ -70,12 +76,23 @@ export const updateContact = async (
 };
 
 export const deleteContact = async (id: string) => {
-  const response = await fetch(`${API_URL}/${id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${getToken()}`,
-    },
-  });
-  return response.json();
+  const jsonObj = await axios
+    .delete(`${API_URL}/api/contacts/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getToken()}`,
+      },
+    })
+    .then((response) => {
+      return response.data; // Get jsonObj
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+      if (error.response.status === 401) {
+        window.location.href = "/";
+      }
+    });
+
+  return jsonObj;
 };
