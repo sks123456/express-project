@@ -4,6 +4,7 @@ import CurrentUser from "../components/CurrentUser";
 import PublicLayout from "../components/layout/PublicLayout";
 import PrivateLayout from "../components/layout/PrivateLayout";
 import AuthPage from "../pages/AuthPage";
+import MainPage from "../pages/MainPage";
 
 const AppRoutes: React.FC = () => {
   return (
@@ -12,7 +13,8 @@ const AppRoutes: React.FC = () => {
         <Route index element={<AuthPage />} />
       </Route>
       <Route path="user" element={<PrivateLayout />}>
-        <Route path="current-user" element={<CurrentUser />} />
+        <Route path="main" element={<MainPage />} />
+        <Route path="contact" element={<CurrentUser />} />
       </Route>
     </Routes>
   );

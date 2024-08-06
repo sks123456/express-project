@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     try {
       const { accessToken } = await loginUser({ email, password });
       localStorage.setItem("token", accessToken);
-      navigate("/user/current-user"); // Redirect to the current user page
+      navigate("/user/main"); // Redirect to the current user page
     } catch (error) {
       console.error("Error logging in user:", error);
     }
