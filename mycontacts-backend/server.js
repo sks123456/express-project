@@ -3,10 +3,13 @@ const connectDB = require("./config/dbConnection");
 const errorHandler = require("./middleware/errorhandler");
 const { connect } = require("mongoose");
 const dotenv = require("dotenv").config();
+const cors = require("cors");
+
 
 connectDB();
 const app = express();
 
+app.use(cors());
 
 const port = process.env.PORT || 5000;
 

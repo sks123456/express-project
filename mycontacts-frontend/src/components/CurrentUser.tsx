@@ -1,34 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { getCurrentUser, User } from '../Api';
 
-const CurrentUser: React.FC = () => {
-    const [user, setUser] = useState<{ name: string, email: string } | null>(null);
+interface CurrentUserProps {
+  token: string;
+}
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/currentUser', {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                setUser(response.data);
-            } catch (error) {
-                console.error('Failed to fetch user', error);
-            }
-        };
+const CurrentUser: React.FC<CurrentUserProps> = ({ token }) => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-        fetchUser();
-    }, []);
+  const handleGetCurrentUser = async () => {
+    try {
+      const user = await getCurrentUser(token);
+      setCurrentUser(user);
+      console.log('Current user:', user);
+    } catch (error) {
+      console.error('Error fetching current user:', error);
+    }
+  };
 
-    if (!user) return <div>Loading...</div>;
-
-    return (
+  return (
+    <div className="current-user-section">
+      <h2>Current User</h2>
+      <button onClick={handleGetCurrentUser}>Get Current User</button>
+      {currentUser && (
         <div>
-            <h1>Welcome, {user.name}</h1>
-            <p>Email: {user.email}</p>
+          <p>Username: {currentUser.username}</p>
+          <p>Email: {currentUser.email}</p>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default CurrentUser;
