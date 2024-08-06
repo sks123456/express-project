@@ -15,8 +15,14 @@ const ContactsList: React.FC = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
-    await deleteContact(id);
-    setContacts(contacts.filter((contact) => contact._id !== id)); // Remove deleted contact from state
+    try {
+      await deleteContact(id); // Call the delete function
+      // Assuming deleteContact throws an error on failure
+      fetchContacts();
+    } catch (error) {
+      console.error("Error deleting contact:", error);
+      // You may want to handle the error (e.g., show a notification) here
+    }
   };
 
   return (
