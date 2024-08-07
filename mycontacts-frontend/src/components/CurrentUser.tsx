@@ -14,7 +14,6 @@ const CurrentUser: React.FC = () => {
         const user = await getCurrentUser(token);
         setCurrentUser(user);
         setShowDetails(!showDetails); // Toggle the visibility of user details
-        console.log("Current user:", user);
       } else {
         navigate("/");
       }
